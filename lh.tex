@@ -1,0 +1,212 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{calc}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{transparent}
+\usepackage{lmodern}
+\usepackage[landscape, margin=0in]{geometry}
+\usepackage{pdflscape}
+\usepackage{pagecolor}
+\usepackage{fp,amssymb,graphicx,xcolor}
+\usepackage[pages=some]{background}
+
+\backgroundsetup{
+scale=1,
+color=black,
+contents={%
+  \includegraphics[width=\paperwidth,height=\paperheight]{background.png}
+  }%
+}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+
+% #1: left text
+% #2: mid text
+% #3: right text
+% #4: order
+% #5: size
+% #6: time
+\newcommand{\swline}[6]{
+  \ifnum #6 > #4
+    \newcount \disa
+    \disa = #4
+    \advance \disa by 10
+    \ifnum \disa > #6
+      \fontsize{#5}{#5}
+      \selectfont
+
+      \node at (0, -#4)
+      [sloped, xslant=0]  (mid) { #2 };
+      \node  
+      [left = 0.0\the#5 cm of mid]
+      [sloped, xslant=1] (lef) { #1 };
+      \node 
+      [sloped, xslant=-1] 
+      [right = 0.0\the#5 cm of mid] (rig) { #3 };
+    \fi
+  \fi
+  \advance #4 by 1;
+  \advance #5 by 5;
+}
+
+\pagecolor{black}
+
+\begin{document}
+
+\vspace*{\fill}
+\newpage
+\vspace*{\fill}
+\newpage
+
+\newcount \timeback
+\timeback = 10
+\loop
+\vspace*{\fill}
+\newcount \tmp
+\tmp = 20
+\multiply \tmp \timeback
+\begin{center}
+  \color[RGB]{0, 0, \the\tmp}
+  {    
+      \fontsize{40}{48}
+      \selectfont
+      A long time ago in a galaxy far,\\ far away... \hphantom{ iiago in a galaxy far,}
+  }
+\end{center}
+\vspace*{\fill}
+\newpage
+\advance \timeback by -1
+\unless \ifnum \timeback < 0
+\repeat
+\color{yellow}
+
+\newcount \fonts
+\fonts = 240
+\loop
+  \BgThispage
+
+  \fontsize{\the\fonts}{\the\fonts}
+  \selectfont
+  \vspace*{\fill}
+  \begin{center}
+    \LaTeX\\ 
+    Wars
+  \end{center}
+  \vspace*{\fill}
+  \newpage
+  \advance \fonts by -10
+\unless \ifnum \fonts < 10
+\repeat
+
+
+
+\timeback = 36
+
+\newcount \timeforw
+\timeforw = 0
+
+\loop
+  \BgThispage
+  \vspace*{\fill}
+
+  \newcount\tmp
+  \tmp = 4
+  \newcount \tmpp
+  \tmpp = 6
+  \multiply \tmp by \timeback
+  \multiply \tmpp by \timeback
+
+  \newcount \bb
+  \bb = 0
+  \newcount \diff
+  \diff = -5
+  \multiply \diff by \the\timeforw \relax
+  
+  \newcount \size
+  \size = 50
+
+  \advance \size by \the\diff \relax
+  
+  \newcount \order
+  \order = 0
+  \begin{figure}[!b]
+    \centering
+      \begin{tikzpicture}
+        \swline{It is a}{period}{of civil war.}{\order}{\size}{\timeforw}
+
+        \swline{Rebel}{spaceships}{striking,}{\order}{\size}{\timeforw}
+
+        \swline{from a }{hidden base,}{ have won}{\order}{\size}{\timeforw}
+
+        \swline{their}{first victory}{against}{\order}{\size}{\timeforw}
+
+        \swline{the evil}{Galactic}{Empire.}{\order}{\size}{\timeforw}
+        
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+
+        \swline{During}{the battle,}{Rebel}{\order}{\size}{\timeforw}
+
+
+        \swline{spies}{managed to steal}{secret}{\order}{\size}{\timeforw}
+
+        \swline{plans to}{ the}{Empire's}{\order}{\size}{\timeforw}
+
+        \swline{ultimate}{weapon,}{the DEATH}{\order}{\size}{\timeforw}
+
+        \swline{STAR,}{an armored}{space}{\order}{\size}{\timeforw}
+
+        \swline{station}{with enough}{power to}{\order}{\size}{\timeforw}
+
+        \swline{destroy}{an entire}{planet.}{\order}{\size}{\timeforw}
+        
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+
+        \swline{Pursued}{by the}{Empire's}{\order}{\size}{\timeforw}
+
+        \swline{ sinister}{agents,}{ Princess }{\order}{\size}{\timeforw}
+
+        \swline{ Leia races}{home}{aboard her }{\order}{\size}{\timeforw}
+
+        \swline{ starship,}{custodian}{ of the }{\order}{\size}{\timeforw}
+
+        \swline{  stolen} {plans that}{ can save  }{\order}{\size}{\timeforw}
+
+        \swline{  her people}{}{and restore  }{\order}{\size}{\timeforw}
+
+        \swline{ freedom}{to the}{ galaxy.....  }{\order}{\size}{\timeforw}
+
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \swline{  }{   }{  }{\order}{\size}{\timeforw}
+    \end{tikzpicture}    
+  \end{figure}
+
+  \vspace*{\fill}
+  \newpage
+\advance \timeback by -1
+\advance \timeforw by 1
+\unless \ifnum \timeback < 2
+\repeat
+\end{document}
