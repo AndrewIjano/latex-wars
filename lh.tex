@@ -7,6 +7,7 @@
 \usepackage{fp,amssymb,graphicx,xcolor}
 \usepackage[pages=some]{background}
 
+% configures space background image
 \backgroundsetup{
 scale=1,
 color=black,
@@ -53,14 +54,6 @@ contents={%
   \fi
   \advance #4 by 1;
   \advance #5 by 5;
-}
-
-\newcommand{\minispace}[3]{
-  \fontsize{5}{10}
-  \selectfont
-  \hphantom{#1}
-  \fontsize{#2}{#3}
-  \selectfont
 }
 
 \pagecolor{black}
