@@ -1,0 +1,31 @@
+\documentclass{article}
+
+\begin{document}
+    % variáveis 
+    \newcount \contador
+
+    % atribuições
+    \contador = 10
+    \the\contador
+
+    % soma
+    \advance \contador by 1
+    \the\contador
+
+    \newcommand{\yayloops}[1]{
+        yay loops! (\the#1)
+        Abacaxi Abacate Mamão ;)\\
+    }
+
+    % loops
+    \loop
+        \paragraph*{}
+        \yayloops{\contador}
+        \yayloops{\contador}
+        \yayloops{\contador}
+
+        \advance \contador by -1
+    \unless \ifnum \contador < 0
+    \repeat    
+\end{document}
+

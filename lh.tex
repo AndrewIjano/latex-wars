@@ -1,14 +1,8 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 
-\usepackage{calc}
-\usepackage{natbib}
-\usepackage{graphicx}
-\usepackage{color}
-\usepackage{transparent}
 \usepackage{lmodern}
 \usepackage[landscape, margin=0in]{geometry}
-\usepackage{pdflscape}
 \usepackage{pagecolor}
 \usepackage{fp,amssymb,graphicx,xcolor}
 \usepackage[pages=some]{background}
@@ -25,6 +19,7 @@ contents={%
 \usetikzlibrary{calc}
 \usetikzlibrary{positioning}
 
+% creates a star wars intro line
 % #1: left text
 % #2: mid text
 % #3: right text
@@ -32,181 +27,295 @@ contents={%
 % #5: size
 % #6: time
 \newcommand{\swline}[6]{
+  % appear
   \ifnum #6 > #4
+    % 
+    % disappear
     \newcount \disa
     \disa = #4
     \advance \disa by 10
     \ifnum \disa > #6
+      %  
+      % changes the font size
       \fontsize{#5}{#5}
       \selectfont
-
+      % 
+      % each part of the line is a node
       \node at (0, -#4)
-      [sloped, xslant=0]  (mid) { #2 };
+        [sloped, xslant=0]  (mid) { #2 };
       \node  
-      [left = 0.0\the#5 cm of mid]
-      [sloped, xslant=1] (lef) { #1 };
+        [left = 0.0\the#5 cm of mid]
+        [sloped, xslant=1] (lef) { #1 };
       \node 
-      [sloped, xslant=-1] 
-      [right = 0.0\the#5 cm of mid] (rig) { #3 };
+        [sloped, xslant=-1] 
+        [right = 0.0\the#5 cm of mid] (rig) { #3 };
     \fi
   \fi
   \advance #4 by 1;
   \advance #5 by 5;
 }
 
+\newcommand{\minispace}[3]{
+  \fontsize{5}{10}
+  \selectfont
+  \hphantom{#1}
+  \fontsize{#2}{#3}
+  \selectfont
+}
+
 \pagecolor{black}
+
+% formats 20
+\newcommand{\fontTwenty}[1]{
+  {
+    \fontsize{160}{140}
+    \selectfont
+    \textbf{#1}
+  }
+}
+
+% formats th
+\newcommand{\fontTh}[1]{
+  {
+    \fontsize{40}{60}
+    \selectfont
+    \textbf{#1}
+  }
+}
+
+% writes twentieth century fox text
+\newcommand{\centuryfox}{
+  \fontTwenty{20} \hspace{-2.2cm} \fontTh{th} 
+}
+
+% multiplies the text given to form a continuous shape
+\newcommand{\multiplytext}[2]{
+  { 
+    \color{yellow}
+    \newcount \texttime
+    \texttime = 100 
+    \loop
+      #2 \hspace{-#1cm}
+    \advance \texttime by -1
+    \unless \ifnum \texttime < 0
+    \repeat
+    #2
+  }
+}
+
+% creates a animated flash
+\newcommand{\centuryfoxflash}[2]{
+  \newcount \x
+  \x = 4
+  \advance \x by #1
+  \begin{tikzpicture}
+    \node (a) at (#1, 0) {};
+    \node (b) at (\x, 0) {};
+    \node[rectangle, draw, fill=yellow] (c) at (2, -10) {\hphantom{AAA}};
+    \fill [yellow] (a.center) -- (b.center) -- (c.center);
+  \end{tikzpicture}
+}
 
 \begin{document}
 
-\vspace*{\fill}
-\newpage
-\vspace*{\fill}
-\newpage
-
-\newcount \timeback
-\timeback = 10
-\loop
-\vspace*{\fill}
-\newcount \tmp
-\tmp = 20
-\multiply \tmp \timeback
-\begin{center}
-  \color[RGB]{0, 0, \the\tmp}
-  {    
-      \fontsize{40}{48}
-      \selectfont
-      A long time ago in a galaxy far,\\ far away... \hphantom{ iiago in a galaxy far,}
-  }
-\end{center}
-\vspace*{\fill}
-\newpage
-\advance \timeback by -1
-\unless \ifnum \timeback < 0
-\repeat
-\color{yellow}
-
-\newcount \fonts
-\fonts = 240
-\loop
-  \BgThispage
-
-  \fontsize{\the\fonts}{\the\fonts}
-  \selectfont
-  \vspace*{\fill}
-  \begin{center}
-    \LaTeX\\ 
-    Wars
-  \end{center}
+  % empty page
   \vspace*{\fill}
   \newpage
-  \advance \fonts by -10
-\unless \ifnum \fonts < 10
-\repeat
 
+  % starts twentieth century fox intro
+  \newcount \timeback
+  \timeback = 0
+  \loop
+    \vspace*{\fill}
 
-
-\timeback = 36
-
-\newcount \timeforw
-\timeforw = 0
-
-\loop
-  \BgThispage
-  \vspace*{\fill}
-
-  \newcount\tmp
-  \tmp = 4
-  \newcount \tmpp
-  \tmpp = 6
-  \multiply \tmp by \timeback
-  \multiply \tmpp by \timeback
-
-  \newcount \bb
-  \bb = 0
-  \newcount \diff
-  \diff = -5
-  \multiply \diff by \the\timeforw \relax
-  
-  \newcount \size
-  \size = 50
-
-  \advance \size by \the\diff \relax
-  
-  \newcount \order
-  \order = 0
-  \begin{figure}[!b]
-    \centering
-      \begin{tikzpicture}
-        \swline{It is a}{period}{of civil war.}{\order}{\size}{\timeforw}
-
-        \swline{Rebel}{spaceships}{striking,}{\order}{\size}{\timeforw}
-
-        \swline{from a }{hidden base,}{ have won}{\order}{\size}{\timeforw}
-
-        \swline{their}{first victory}{against}{\order}{\size}{\timeforw}
-
-        \swline{the evil}{Galactic}{Empire.}{\order}{\size}{\timeforw}
-        
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-
-        \swline{During}{the battle,}{Rebel}{\order}{\size}{\timeforw}
-
-
-        \swline{spies}{managed to steal}{secret}{\order}{\size}{\timeforw}
-
-        \swline{plans to}{ the}{Empire's}{\order}{\size}{\timeforw}
-
-        \swline{ultimate}{weapon,}{the DEATH}{\order}{\size}{\timeforw}
-
-        \swline{STAR,}{an armored}{space}{\order}{\size}{\timeforw}
-
-        \swline{station}{with enough}{power to}{\order}{\size}{\timeforw}
-
-        \swline{destroy}{an entire}{planet.}{\order}{\size}{\timeforw}
-        
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-
-        \swline{Pursued}{by the}{Empire's}{\order}{\size}{\timeforw}
-
-        \swline{ sinister}{agents,}{ Princess }{\order}{\size}{\timeforw}
-
-        \swline{ Leia races}{home}{aboard her }{\order}{\size}{\timeforw}
-
-        \swline{ starship,}{custodian}{ of the }{\order}{\size}{\timeforw}
-
-        \swline{  stolen} {plans that}{ can save  }{\order}{\size}{\timeforw}
-
-        \swline{  her people}{}{and restore  }{\order}{\size}{\timeforw}
-
-        \swline{ freedom}{to the}{ galaxy.....  }{\order}{\size}{\timeforw}
-
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-        \swline{  }{   }{  }{\order}{\size}{\timeforw}
-    \end{tikzpicture}    
-  \end{figure}
+    % left flash
+    \centuryfoxflash{\the\timeback}{4}
+    \vspace{-10cm}
+    % middle text
+    \begin{center}
+      {   
+          \color{yellow}
+          \centuryfox\\
+          \fontsize{60}{48}
+          \selectfont
+          \begin{tabular}{c}
+            \hline\\
+            \hphantom{aaaaaaaa}
+          \end{tabular}\\
+          \vspace{-3.6cm}
+          \textbf{century}\\    
+          \begin{tabular}{c}
+            \hline\\
+            \hphantom{aaaaaaaa}
+          \end{tabular}\\
+          \vspace{-3cm}
+          \textbf{F}  \textbf{O}  \textbf{X}\\
+          % creates the box multiplying []
+          \multiplytext{2.255}{[]}\\
+      }
+    \end{center}
+    % right flash
+    \begin{flushright}
+      \vspace{-10cm}
+      \centuryfoxflash{-\the\timeback}{4}
+    \end{flushright}
+    \vspace*{\fill}
+    % 
+    \newpage
+    \advance \timeback by 1
+  \unless \ifnum \timeback > 8
+  \repeat
 
   \vspace*{\fill}
   \newpage
-\advance \timeback by -1
-\advance \timeforw by 1
-\unless \ifnum \timeback < 2
-\repeat
+  \vspace*{\fill}
+  \newpage
+  
+  % blue text and fade out
+  \timeback = 10
+  \loop
+    \vspace*{\fill}
+    \newcount \tmp
+    \tmp = 20
+    \multiply \tmp \timeback
+    \begin{center}
+      \color[RGB]{0, 0, \the\tmp}
+      {    
+          \fontsize{40}{48}
+          \selectfont
+          A long time ago in a galaxy far,\\ far away... \hphantom{ iiago in a galaxy far,}
+      }
+    \end{center}
+    \vspace*{\fill}
+    \newpage
+    \advance \timeback by -1
+  \unless \ifnum \timeback < 0
+  \repeat
+  \color{yellow}
+
+  % shows LaTeX Wars title
+  \newcount \fonts
+  \fonts = 240
+  \loop
+    \BgThispage
+
+    \fontsize{\the\fonts}{\the\fonts}
+    \selectfont
+    \vspace*{\fill}
+    \begin{center}
+      \LaTeX\\ 
+      Wars
+    \end{center}
+    \vspace*{\fill}
+    \newpage
+    \advance \fonts by -10
+  \unless \ifnum \fonts < 10
+  \repeat
+
+
+  % star wars opening crawl animation
+  \timeback = 36
+
+  \newcount \timeforw
+  \timeforw = 0
+
+  \loop
+    \BgThispage
+    \vspace*{\fill}
+
+    \newcount\tmp
+    \tmp = 4
+    \newcount \tmpp
+    \tmpp = 6
+    \multiply \tmp by \timeback
+    \multiply \tmpp by \timeback
+
+    \newcount \bb
+    \bb = 0
+    \newcount \diff
+    \diff = -5
+    \multiply \diff by \the\timeforw \relax
+    
+    \newcount \size
+    \size = 50
+
+    \advance \size by \the\diff \relax
+    
+    \newcount \order
+    \order = 0
+    \begin{figure}[!b]
+      \centering
+        \begin{tikzpicture}
+          \swline{It is a}{period}{of civil war.}{\order}{\size}{\timeforw}
+
+          \swline{Rebel}{spaceships}{striking,}{\order}{\size}{\timeforw}
+
+          \swline{from a }{hidden base,}{ have won}{\order}{\size}{\timeforw}
+
+          \swline{their}{first victory}{against}{\order}{\size}{\timeforw}
+
+          \swline{the evil}{Galactic}{Empire.}{\order}{\size}{\timeforw}
+          
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+
+          \swline{During}{the battle,}{Rebel}{\order}{\size}{\timeforw}
+
+
+          \swline{spies}{managed to steal}{secret}{\order}{\size}{\timeforw}
+
+          \swline{plans to}{ the}{Empire's}{\order}{\size}{\timeforw}
+
+          \swline{ultimate}{weapon,}{the DEATH}{\order}{\size}{\timeforw}
+
+          \swline{STAR,}{an armored}{space}{\order}{\size}{\timeforw}
+
+          \swline{station}{with enough}{power to}{\order}{\size}{\timeforw}
+
+          \swline{destroy}{an entire}{planet.}{\order}{\size}{\timeforw}
+          
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+
+          \swline{Pursued}{by the}{Empire's}{\order}{\size}{\timeforw}
+
+          \swline{ sinister}{agents,}{ Princess }{\order}{\size}{\timeforw}
+
+          \swline{ Leia races}{home}{aboard her }{\order}{\size}{\timeforw}
+
+          \swline{ starship,}{custodian}{ of the }{\order}{\size}{\timeforw}
+
+          \swline{  stolen} {plans that}{ can save  }{\order}{\size}{\timeforw}
+
+          \swline{  her people}{}{and restore  }{\order}{\size}{\timeforw}
+
+          \swline{ freedom}{to the}{ galaxy.....  }{\order}{\size}{\timeforw}
+
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+          \swline{  }{   }{  }{\order}{\size}{\timeforw}
+        \end{tikzpicture}    
+    \end{figure}
+
+    \vspace*{\fill}
+    \newpage
+  \advance \timeback by -1
+  \advance \timeforw by 1
+  \unless \ifnum \timeback < 2
+  \repeat
 \end{document}
